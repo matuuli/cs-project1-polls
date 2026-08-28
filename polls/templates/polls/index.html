@@ -1,0 +1,72 @@
+<h1>Polls</h1>
+
+{% if user.is_authenticated %}
+    <p>Logged in as {{ user.username }}</p>
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Log out</button>
+    </form>
+{% else %}
+    <a href="{% url 'login' %}">Log in</a>
+    <a href="{% url 'polls:register' %}">Create account</a>
+{% endif %}
+
+<h2>Search polls</h2>
+
+<form method="get" action="{% url 'polls:index' %}">
+    <input
+        type="text"
+        name="q"
+        placeholder="Search questions..."
+        value="{{ query }}"
+    >
+    <button type="submit">Search</button>
+</form>
+
+
+{% if query %}
+    <h2>Search results for "{{ query }}"</h2>
+
+    {% if latest_question_list %}
+        <ul>
+        {% for question in latest_question_list %}
+            <li>
+                {% if user.is_authenticated %}
+                <a href="{% url 'polls:detail' question.id %}">
+                    {{ question.question_text }}
+                </a>
+                {% else %}
+                <a>
+                    {{ question.question_text }}
+                </a>
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No questions matched your search.</p>
+    {% endif %}
+
+{% else %}
+    <h2>Latest polls</h2>
+
+    {% if latest_question_list %}
+        <ul>
+        {% for question in latest_question_list %}
+            <li>
+                {% if user.is_authenticated %}
+                <a href="{% url 'polls:detail' question.id %}">
+                    {{ question.question_text }}
+                </a>
+                {% else %}
+                <a>
+                    {{ question.question_text }}
+                </a>
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No polls are available.</p>
+    {% endif %}
+{% endif %}
