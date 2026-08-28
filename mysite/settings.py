@@ -22,10 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-vw(r=zhd+owya13=tk8@!v63pna+vyntyp090vid(fm*#ond_9"
 
-# SECURITY WARNING: don't run with debug turned on in production!
-#fix:
-#DEBUG = False
+
+#vulnerable version:
 DEBUG = True
+
+#secure version:
+#DEBUG = False
 
 #ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
@@ -89,7 +91,10 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
+#vulnerable version:
 AUTH_PASSWORD_VALIDATORS = []
+
+#safe version:
 #AUTH_PASSWORD_VALIDATORS = [
 #    {
 #        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
